@@ -1,6 +1,6 @@
 # About
 
-This web application was done with Jonas Schmedtmann guidance and support through his React course.
+This web application was done with Jonas Schmedtmann guidance and support through his **React** course.
 
 # The project: The wild oasis
 
