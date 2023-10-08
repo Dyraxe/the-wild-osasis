@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { getCabins } from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
+import toast from "react-hot-toast";
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
 
@@ -32,6 +33,7 @@ function CabinTable() {
     isLoading,
     error,
   } = useQuery({ queryKey: ["cabins"], queryFn: getCabins });
+  if (error) toast.error(error.message);
   if (isLoading) return <Spinner />;
   return (
     <Table role="table">
@@ -44,9 +46,8 @@ function CabinTable() {
         <div></div>
         <div></div>
       </TableHeader>
-      {cabins.map((cabin) => (
-        <CabinRow cabin={cabin} key={cabin.id} />
-      ))}
+      {!error &&
+        cabins.map((cabin) => <CabinRow cabin={cabin} key={cabin.id} />)}
     </Table>
   );
 }
