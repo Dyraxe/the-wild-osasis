@@ -22,7 +22,7 @@ export async function createCabin(newCabin) {
     "/",
     ""
   );
-  const photoPath = `${supabaseUrl}/storage/v1/object/public/${imageName}`;
+  const photoPath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
   const { data, error } = await supabase
     .from("cabins")
     .insert([{ ...newCabin, image: photoPath }])
@@ -36,5 +36,10 @@ export async function createCabin(newCabin) {
     .upload(imageName, newCabin.image);
 
   //delete the cabin if the
+  if (storageError) {
+    await supabase.from("cabins").delete().eq("id", data.id);
+    console.error(storageError);
+    throw new Error("Error while trying to upload the cabin's image");
+  }
   return data;
 }

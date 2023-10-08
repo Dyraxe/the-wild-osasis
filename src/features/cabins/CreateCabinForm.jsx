@@ -30,21 +30,19 @@ function CreateCabinForm() {
     },
     onError: () => toast.error("failed to create cabin"),
   });
-  const onSubmit = (data) => mutate({ ...data, image: data.image.at(0) });
+  const onSubmit = (data) => {
+    mutate({ ...data, image: data.image[0] });
+  };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
           disabled={isLoading}
-          type="number"
-          id="maxCapacity"
-          {...register("maxCapacity", {
+          type="text"
+          id="name"
+          {...register("name", {
             required: "This field is required",
-            min: {
-              value: 1,
-              message: "Capacity should be at least 1",
-            },
           })}
         />
       </FormRow>
