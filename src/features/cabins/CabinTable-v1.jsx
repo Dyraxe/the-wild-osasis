@@ -5,15 +5,6 @@ import { useCabins } from "./useCabins";
 import toast from "react-hot-toast";
 import Table from "../../ui/Table";
 
-const StyledTable = styled.div`
-  border: 1px solid var(--color-grey-200);
-
-  font-size: 1.4rem;
-  background-color: var(--color-grey-0);
-  border-radius: 7px;
-  overflow: hidden;
-`;
-
 const TableHeader = styled.header`
   display: grid;
   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
@@ -33,7 +24,7 @@ function CabinTable() {
   if (error) toast.error(error.message);
   if (isLoading) return <Spinner />;
   return (
-    <Table role="table" $columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
+    <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
       <Table.Header role="row">
         <div></div>
         <div>Cabin</div>
@@ -41,14 +32,10 @@ function CabinTable() {
         <div>Price</div>
         <div>Discount</div>
         <div></div>
+        <div></div>
       </Table.Header>
-
-      {!error && (
-        <Table.Body
-          data={cabins}
-          render={(cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
-        />
-      )}
+      {!error &&
+        cabins.map((cabin) => <CabinRow cabin={cabin} key={cabin.id} />)}
     </Table>
   );
 }

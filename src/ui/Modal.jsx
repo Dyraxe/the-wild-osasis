@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { HiXMark } from "react-icons/hi2";
 import { createPortal } from "react-dom";
 import { cloneElement, createContext, useContext, useState } from "react";
-import { roundToNearestMinutes } from "date-fns/esm";
-import closestIndexTo from "date-fns/esm/closestIndexTo";
+
+import useOutsideClick from "../hooks/useOutsideClick";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -75,10 +75,11 @@ function Open({ children, opens }) {
 
 function Window({ children, name }) {
   const { openName, close } = useModalContext();
+  const ref = useOutsideClick(close);
   if (name !== openName) return null;
   return createPortal(
     <Overlay>
-      <StyledModal>
+      <StyledModal ref={ref}>
         <Button onClick={close}>
           <HiXMark />
         </Button>
