@@ -4,6 +4,7 @@ import CabinRow from "./CabinRow";
 import { useCabins } from "./useCabins";
 import toast from "react-hot-toast";
 import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -33,23 +34,25 @@ function CabinTable() {
   if (error) toast.error(error.message);
   if (isLoading) return <Spinner />;
   return (
-    <Table role="table" $columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
-      <Table.Header role="row">
-        <div></div>
-        <div>Cabin</div>
-        <div>Capacity</div>
-        <div>Price</div>
-        <div>Discount</div>
-        <div></div>
-      </Table.Header>
+    <Menus>
+      <Table role="table" $columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
+        <Table.Header role="row">
+          <div></div>
+          <div>Cabin</div>
+          <div>Capacity</div>
+          <div>Price</div>
+          <div>Discount</div>
+          <div></div>
+        </Table.Header>
 
-      {!error && (
-        <Table.Body
-          data={cabins}
-          render={(cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
-        />
-      )}
-    </Table>
+        {!error && (
+          <Table.Body
+            data={cabins}
+            render={(cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
+          />
+        )}
+      </Table>
+    </Menus>
   );
 }
 
